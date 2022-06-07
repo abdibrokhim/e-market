@@ -1,6 +1,6 @@
 from datetime import date
 import connections
-# import shopping
+import stock
 
 
 class Admin:
@@ -34,7 +34,7 @@ class Admin:
                 print("\nINVALID")
 
     def sign_in(self):
-        person_name = str(input("INPUT YOUR NAME: ").upper())
+        person_name = str(input("\nINPUT YOUR NAME: ").upper())
         person_password = str(input("INPUT YOUR PASSWORD: "))
         person_type = 'ADMIN'
 
@@ -42,15 +42,12 @@ class Admin:
         for i in range(0, len(item)):
             if person_name == item[i][0] and person_password == item[i][1] and person_type == item[i][2]:
                 self.end = True
-                self.get_person()
-                break
+                stock.Stock().main_menu()
             elif (person_name == item[i][0] or person_password == item[i][1]) and person_type == item[i][2]:
                 print("\nWRONG ADMIN NAME OR PASSWORD\n")
-                self.main_menu()
-                break
+                self.end = True
         if not self.end:
             print("\nSIGN UP FIRSTLY\n")
-            self.main_menu()
 
     def sign_up(self):
         admin = self.valid_admin()
@@ -65,13 +62,11 @@ class Admin:
             self.connection.commit()
 
             print("\nNOW YOU CAN SIGN IN\n")
-            self.main_menu()
         else:
             print("\nWRONG\n")
-            self.main_menu()
 
     def valid_admin(self):
-        secret_phrase = str(input("INPUT SECRET PHRASE TO SIGN UP AS ADMIN: "))
+        secret_phrase = str(input("\nINPUT SECRET PHRASE TO SIGN UP AS ADMIN: "))
         if secret_phrase == str(date.today()):
             return True
         else:

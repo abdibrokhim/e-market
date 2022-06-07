@@ -43,17 +43,14 @@ class Customer:
             if person_name == item[i][0] and person_password == item[i][1] and person_type == item[i][2]:
                 self.end = True
                 shopping.Shopping().main_menu()
-                break
             elif (person_name == item[i][0] or person_password == item[i][1]) and person_type == item[i][2]:
                 print("\nWRONG CUSTOMER NAME OR PASSWORD\n")
-                self.main_menu()
-                break
+                self.end = True
         if not self.end:
             print("\nSIGN UP FIRSTLY\n")
-            self.main_menu()
 
     def sign_up(self):
-        person_name = str(input("INPUT YOUR NAME: ").upper())
+        person_name = str(input("\nINPUT YOUR NAME: ").upper())
         person_password = str(input("INPUT YOUR PASSWORD: "))
         person_type = 'CUSTOMER'
 
@@ -62,4 +59,3 @@ class Customer:
         self.connection.commit()
 
         print("\nNOW YOU CAN SIGN IN\n")
-        self.main_menu()

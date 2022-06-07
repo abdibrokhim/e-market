@@ -47,6 +47,3 @@ class Shopping:
                 return False
             else:
                 print("\nINVALID")
-
-    def shopping(self):
-        pass

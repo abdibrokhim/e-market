@@ -20,10 +20,10 @@ class Stock:
             if choice == 1:
                 shop.Shop().add_item()
             elif choice == 2:
-                item_name = str(input("INPUT PRODUCT NAME: "))
+                item_name = str(input("\nINPUT PRODUCT NAME: "))
                 shop.Shop().delete_item(item_name)
             elif choice == 3:
-                item_name = str(input("INPUT PRODUCT NAME: ").upper())
+                item_name = str(input("\nINPUT PRODUCT NAME: ").upper())
                 supply_number = int(input("INPUT PRODUCT QUANTITY: "))
                 shop.Shop().update_item(item_name, supply_number)
             elif choice == 4:
