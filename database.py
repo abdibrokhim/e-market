@@ -12,7 +12,7 @@ class PersonDB:
             (NAME CHAR(25), 
             PASSWORD VARCHAR(25), 
             TYPE CHAR(25));'''.format(self.table_name))
-        print("success")
+        print("SUCCESS")
         self.cursor.close()
 
 
@@ -22,11 +22,11 @@ class ShopDB:
 
     table_name = 'FOOD'
 
-    def create_market_database(self):
+    def create_shop_database(self):
         self.cursor.execute('''CREATE TABLE {}
             (NAME CHAR(25), 
             SUPPLY INTEGER, 
             PRICE INTEGER, 
             CATEGORY CHAR(25));'''.format(self.table_name))
-        print("success")
+        print("SUCCESS")
         self.cursor.close()

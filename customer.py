@@ -1,4 +1,5 @@
 import connections
+import database
 import shopping
 
 
@@ -6,7 +7,7 @@ class Customer:
     connection = connections.PersonDB().get_connection()
     cursor = connections.PersonDB().get_cursor()
 
-    table_name = 'PERSON'
+    table_name = database.PersonDB().table_name
     end = False
 
     def main_menu(self):

@@ -16,7 +16,7 @@ class Shopping:
                 continue
 
             if choice == 1:
-                shop.Shop().get_item()
+                shop.Shop().get_table()
                 self.secondary_menu()
             elif choice == 0:
                 exit()

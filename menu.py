@@ -1,11 +1,9 @@
-from admin import Admin
-from customer import Customer
+import admin
+import customer
 
 
 class Menu:
     def main_menu(self):
-        admin = Admin()
-        customer = Customer()
         while True:
             print('\nCONTINUE AS ...\n')
             print('[1] -> ADMIN')
@@ -20,9 +18,9 @@ class Menu:
                 continue
 
             if choice == 1:
-                admin.main_menu()
+                admin.Admin().main_menu()
             elif choice == 2:
-                customer.main_menu()
+                customer.Customer().main_menu()
             elif choice == 0:
                 exit()
             else:

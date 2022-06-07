@@ -1,3 +1,4 @@
+from datetime import date
 import connections
 # import shopping
 
@@ -54,7 +55,8 @@ class Admin:
     def sign_up(self):
         admin = self.valid_admin()
         if admin:
-            person_name = str(input("INPUT YOUR NAME: ").upper())
+            print("\nWELCOME!")
+            person_name = str(input("\nINPUT YOUR NAME: ").upper())
             person_password = str(input("INPUT YOUR PASSWORD: "))
             person_type = 'ADMIN'
 
@@ -70,7 +72,7 @@ class Admin:
 
     def valid_admin(self):
         secret_phrase = str(input("INPUT SECRET PHRASE TO SIGN UP AS ADMIN: "))
-        if secret_phrase == 'TO SIGN UP AS ADMIN':
+        if secret_phrase == str(date.today()):
             return True
         else:
             return False
@@ -78,5 +80,7 @@ class Admin:
     def get_person(self, ):
         items = self.cursor.execute("SELECT NAME, PASSWORD, TYPE FROM {}".format(self.table_name)).fetchall()
         print("\nPERSON\n")
-        for item in items:
-            print(item, end='\n')
+        print("{:20} {:25}  {:20}".format('NAME', 'PASSWORD', 'TYPE'))
+        print(56 * str("-"))
+        for i in range(0, len(items)):
+            print("{:20} {:25.25}  {:20}".format(items[i][0], items[i][1], items[i][2]))
