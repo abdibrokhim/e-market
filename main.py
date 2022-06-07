@@ -1,11 +1,10 @@
-from menu import Menu
+import menu
 
 
 def main():
-    menu = Menu()
-    menu.menu()
+    menu.Menu().main_menu()
 
-    print("\nUSE FOR HAPPINESS!\n")
+    print("\n!SUCCESS!\n")
 
 
 if __name__ == '__main__':
