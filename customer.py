@@ -1,12 +1,13 @@
-import connection
+import connections
 import shopping
 
 
 class Customer:
-    connection = connection.PersonDB().get_connection()
-    cursor = connection.PersonDB().get_cursor()
+    connection = connections.PersonDB().get_connection()
+    cursor = connections.PersonDB().get_cursor()
 
     table_name = 'PERSON'
+    end = False
 
     def main_menu(self):
         while True:
@@ -33,13 +34,22 @@ class Customer:
 
     def sign_in(self):
         person_name = str(input("INPUT YOUR NAME: ").upper())
-        person_password = int(input("INPUT YOUR PASSWORD: "))
+        person_password = str(input("INPUT YOUR PASSWORD: "))
         person_type = 'CUSTOMER'
 
         item = self.cursor.execute("SELECT NAME, PASSWORD, TYPE FROM {}".format(self.table_name)).fetchall()
         for i in range(0, len(item)):
             if person_name == item[i][0] and person_password == item[i][1] and person_type == item[i][2]:
+                self.end = True
                 shopping.Shopping().main_menu()
+                break
+            elif (person_name == item[i][0] or person_password == item[i][1]) and person_type == item[i][2]:
+                print("\nWRONG CUSTOMER NAME OR PASSWORD\n")
+                self.main_menu()
+                break
+        if not self.end:
+            print("\nSIGN UP FIRSTLY\n")
+            self.main_menu()
 
     def sign_up(self):
         person_name = str(input("INPUT YOUR NAME: ").upper())
@@ -49,3 +59,6 @@ class Customer:
         self.connection.execute("INSERT INTO {} VALUES (?, ?, ?)".format(self.table_name),
                                 (person_name, person_password, person_type))
         self.connection.commit()
+
+        print("\nNOW YOU CAN SIGN IN\n")
+        self.main_menu()

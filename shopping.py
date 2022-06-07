@@ -5,8 +5,7 @@ import cart
 class Shopping:
     def main_menu(self):
         while True:
-            print('\nBUY FOR HAPPINESS!\n')
-            print('[1] -> SHOP')
+            print('\n[1] -> SHOP')
             print('[0] -> EXIT\n')
 
             choice = input("[?] -> ")
@@ -26,7 +25,7 @@ class Shopping:
 
     def secondary_menu(self):
         while True:
-            print('[1] -> ADD TO CART')
+            print('\n[1] -> ADD TO CART')
             print('[2] -> DELETE FROM CART')
             print('[3] -> VIEW CART')
             print('\n[0] -> BACK\n')

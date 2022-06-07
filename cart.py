@@ -1,12 +1,13 @@
-import connection
+import connections
 
 
 class Cart:
-    connection = connection.ShopDB().get_connection()
-    cursor = connection.ShopDB().get_cursor()
+    connection = connections.ShopDB().get_connection()
+    cursor = connections.ShopDB().get_cursor()
 
     table_name = 'FOOD'
     cart_dict = {}
+    for_payment = 0
 
     def add_to_cart(self,):
         item_name = str(input("INPUT ITEM NAME: ").upper())
@@ -30,8 +31,17 @@ class Cart:
                 self.cart_dict[item_name]['TOTAL'] -= item_total
 
     def get_cart(self,):
-        print("\nCART")
-        for item_id, item_info in self.cart_dict.items():
-            print("\nNAME:", item_id)
-            for val in item_info:
-                print(val + ':', item_info[val])
+        print("\nCART\n")
+        if not self.cart_dict:
+            print("YOUR CART IS EMPTY")
+        else:
+            for item_id, item_info in self.cart_dict.items():
+                print("\nNAME:", item_id)
+                for val in item_info:
+                    if val == 'PRICE':
+                        print(val + ':', '$' + str(item_info[val]))
+                        self.for_payment += item_info[val]
+                    else:
+                        print(val + ':', item_info[val])
+
+        print("\nFOR PAYMENT:", '$' + str(self.for_payment))

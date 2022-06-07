@@ -1,12 +1,13 @@
-import connection
-import shopping
+import connections
+# import shopping
 
 
 class Admin:
-    connection = connection.PersonDB().get_connection()
-    cursor = connection.PersonDB().get_cursor()
+    connection = connections.PersonDB().get_connection()
+    cursor = connections.PersonDB().get_cursor()
 
     table_name = 'PERSON'
+    end = False
 
     def main_menu(self):
         while True:
@@ -33,19 +34,49 @@ class Admin:
 
     def sign_in(self):
         person_name = str(input("INPUT YOUR NAME: ").upper())
-        person_password = int(input("INPUT YOUR PASSWORD: "))
+        person_password = str(input("INPUT YOUR PASSWORD: "))
         person_type = 'ADMIN'
 
         item = self.cursor.execute("SELECT NAME, PASSWORD, TYPE FROM {}".format(self.table_name)).fetchall()
         for i in range(0, len(item)):
             if person_name == item[i][0] and person_password == item[i][1] and person_type == item[i][2]:
-                shopping.Shopping().main_menu()
+                self.end = True
+                self.get_person()
+                break
+            elif (person_name == item[i][0] or person_password == item[i][1]) and person_type == item[i][2]:
+                print("\nWRONG ADMIN NAME OR PASSWORD\n")
+                self.main_menu()
+                break
+        if not self.end:
+            print("\nSIGN UP FIRSTLY\n")
+            self.main_menu()
 
     def sign_up(self):
-        person_name = str(input("INPUT YOUR NAME: ").upper())
-        person_password = str(input("INPUT YOUR PASSWORD: "))
-        person_type = 'ADMIN'
+        admin = self.valid_admin()
+        if admin:
+            person_name = str(input("INPUT YOUR NAME: ").upper())
+            person_password = str(input("INPUT YOUR PASSWORD: "))
+            person_type = 'ADMIN'
 
-        self.connection.execute("INSERT INTO {} VALUES (?, ?, ?)".format(self.table_name),
-                                (person_name, person_password, person_type))
-        self.connection.commit()
+            self.connection.execute("INSERT INTO {} VALUES (?, ?, ?)".format(self.table_name),
+                                    (person_name, person_password, person_type))
+            self.connection.commit()
+
+            print("\nNOW YOU CAN SIGN IN\n")
+            self.main_menu()
+        else:
+            print("\nWRONG\n")
+            self.main_menu()
+
+    def valid_admin(self):
+        secret_phrase = str(input("INPUT SECRET PHRASE TO SIGN UP AS ADMIN: "))
+        if secret_phrase == 'TO SIGN UP AS ADMIN':
+            return True
+        else:
+            return False
+
+    def get_person(self, ):
+        items = self.cursor.execute("SELECT NAME, PASSWORD, TYPE FROM {}".format(self.table_name)).fetchall()
+        print("\nPERSON\n")
+        for item in items:
+            print(item, end='\n')

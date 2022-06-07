@@ -1,9 +1,9 @@
-import connection
+import connections
 
 
 class Shop:
-    connection = connection.ShopDB().get_connection()
-    cursor = connection.ShopDB().get_cursor()
+    connection = connections.ShopDB().get_connection()
+    cursor = connections.ShopDB().get_cursor()
 
     table_name = 'FOOD'
 
@@ -26,10 +26,10 @@ class Shop:
         self.connection.commit()
 
     def get_item(self, ):
-        items = self.cursor.execute("SELECT NAME FROM {}".format(self.table_name)).fetchall()
-        print("\nAVAILABLE IN STOCKN\n")
+        items = self.cursor.execute("SELECT NAME, SUPPLY FROM {}".format(self.table_name)).fetchall()
+        print("\nAVAILABLE IN STOCK\n")
         for i in range(0, len(items)):
-            print(str(i + 1) + ':', items[i][0])
+            print(str(i + 1) + ':', items[i][0], '', items[i][1], 'left only')
 
     def get_table(self, ):
         items = self.cursor.execute("SELECT NAME, SUPPLY, PRICE, CATEGORY FROM {}".format(self.table_name)).fetchall()
